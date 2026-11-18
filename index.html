@@ -17,8 +17,8 @@ html,body{height:100%;background:var(--bg);color:var(--cream);font-family:Heebo,
 .slide{position:absolute;inset:0;opacity:0;pointer-events:none;transition:opacity .6s ease, transform .6s ease;transform:scale(1.015);display:flex;overflow:hidden}
 .slide.on{opacity:1;pointer-events:auto;transform:none}
 .bg{position:absolute;inset:0;background-size:cover;background-position:center;z-index:0}
-.bg::after{content:"";position:absolute;inset:0;background:linear-gradient(270deg,rgba(20,10,13,.94) 0%,rgba(20,10,13,.78) 42%,rgba(20,10,13,.15) 100%)}
-.bg.full::after{background:radial-gradient(ellipse at center,rgba(20,10,13,.35),rgba(20,10,13,.9))}
+.bg::after{content:"";position:absolute;inset:0;background:linear-gradient(270deg,rgba(20,10,13,.97) 0%,rgba(20,10,13,.9) 45%,rgba(20,10,13,.45) 75%,rgba(20,10,13,.2) 100%)}
+.bg.full::after{background:radial-gradient(ellipse at center,rgba(20,10,13,.62),rgba(20,10,13,.92))}
 video.bg{object-fit:cover;width:100%;height:100%}
 .content{position:relative;z-index:1;padding:7vh 7vw;display:flex;flex-direction:column;justify-content:center;max-width:62vw;gap:3vh}
 .center .content{max-width:none;width:100%;align-items:center;text-align:center}
@@ -35,6 +35,22 @@ ul.warn li::before{background:var(--wine2);box-shadow:0 0 14px var(--wine2)}
 .tag{display:inline-block;border:1px solid var(--line);color:var(--amber);border-radius:999px;padding:.2em .9em;font-size:clamp(13px,1.2vw,18px);font-weight:600;align-self:flex-start}
 .num{position:absolute;bottom:3vh;left:3vw;z-index:3;color:var(--muted);font-size:14px;opacity:.7;font-variant-numeric:tabular-nums}
 .progress{position:absolute;bottom:0;right:0;height:3px;background:linear-gradient(90deg,var(--amber),var(--wine2));z-index:3;transition:width .5s}
+
+/* cover stage */
+.stage{position:absolute;left:0;top:0;width:1344px;height:768px;transform-origin:0 0;transition:transform 2.6s cubic-bezier(.6,0,.2,1)}
+.stage img{display:block;width:1344px;height:768px}
+.screen{position:absolute;left:0;top:0;width:1000px;height:640px;transform-origin:0 0;direction:rtl;text-align:center;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:34px;color:#3a0f1c;opacity:0;transition:opacity 1.2s ease .9s;font-family:Rubik,Heebo,sans-serif}
+.zoomed .screen{opacity:1}
+.screen .k{font-size:50px;font-weight:600;color:#7a1f35}
+.screen .t{font-size:190px;font-weight:900;line-height:.95;letter-spacing:-.02em}
+.screen .t span{color:#b23a55}
+.screen .s{font-size:56px;font-weight:500;color:#5a2a33;line-height:1.25}
+/* readability: dark halo behind all text over images */
+.content h1,.content h2,.content .sub,.content .kicker,.content ul.pts li,.explain h3,.explain p{
+  text-shadow:0 0 2px rgba(10,4,6,.95),0 0 10px rgba(10,4,6,.9),0 0 28px rgba(10,4,6,.85),0 4px 40px rgba(0,0,0,.8)}
+.content .sub{color:#e6d3c9;font-weight:400}
+.col,.g,.chip{background:rgba(22,9,13,.86)}
+.tag{background:rgba(22,9,13,.8)}
 
 /* compare */
 .vs{display:grid;grid-template-columns:1fr 1fr;gap:2vw;width:100%}
@@ -120,13 +136,14 @@ ul.warn li::before{background:var(--wine2);box-shadow:0 0 14px var(--wine2)}
 <div class="deck" id="deck">
 
 <!-- 1 -->
-<section class="slide center">
-  <video class="bg full" id="coverVid" autoplay muted loop playsinline poster="img/cover.jpg"><source src="img/cover.mp4" type="video/mp4"></video>
-  <div class="bg full" style="background-image:url(img/cover.jpg);z-index:-1"></div>
-  <div class="content">
-    <div class="kicker">ברוכות הבאות לערב שישנה את חייכן</div>
-    <h1>ערב <span class="amb">קלוד</span> ו<span class="wine">יין</span> 🍷</h1>
-    <div class="sub">שעה אחת. כוס אחת. מחשב שעובד בשבילכן.</div>
+<section class="slide" id="coverSlide" style="background:#1a0d10">
+  <div class="stage" id="stage">
+    <img src="img/cover.jpg" alt="" width="1344" height="768">
+    <div class="screen" id="screen">
+      <div class="k">ברוכות הבאות לערב שישנה את חייכן</div>
+      <div class="t">ערב <span>קלוד</span><br>ויין 🍷</div>
+      <div class="s">שעה אחת. כוס אחת.<br>מחשב שעובד בשבילכן.</div>
+    </div>
   </div>
 </section>
 
@@ -492,7 +509,31 @@ addEventListener('click',e=>{ (e.clientX<innerWidth*0.25&&false)?prev():next() }
 addEventListener('contextmenu',e=>{e.preventDefault();prev()});
 addEventListener('resize',()=>{if(cur===tourIdx)placeHot()});
 const h=parseInt(location.hash.slice(1)); if(h>0&&h<=slides.length)cur=h-1;
-document.getElementById('coverVid').addEventListener('error',()=>{},true);
+/* ---- cover: text mapped onto laptop screen + zoom ---- */
+function adj(m){return[m[4]*m[8]-m[5]*m[7],m[2]*m[7]-m[1]*m[8],m[1]*m[5]-m[2]*m[4],m[5]*m[6]-m[3]*m[8],m[0]*m[8]-m[2]*m[6],m[2]*m[3]-m[0]*m[5],m[3]*m[7]-m[4]*m[6],m[1]*m[6]-m[0]*m[7],m[0]*m[4]-m[1]*m[3]]}
+function mm(a,b){const c=[];for(let i=0;i<3;i++)for(let j=0;j<3;j++){let s=0;for(let k=0;k<3;k++)s+=a[3*i+k]*b[3*k+j];c[3*i+j]=s}return c}
+function mv(m,v){return[m[0]*v[0]+m[1]*v[1]+m[2]*v[2],m[3]*v[0]+m[4]*v[1]+m[5]*v[2],m[6]*v[0]+m[7]*v[1]+m[8]*v[2]]}
+function basis(p){const m=[p[0],p[2],p[4],p[1],p[3],p[5],1,1,1];const v=mv(adj(m),[p[6],p[7],1]);return mm(m,[v[0],0,0,0,v[1],0,0,0,v[2]])}
+function proj(src,dst){const t=mm(basis(dst),adj(basis(src)));for(let i=0;i<9;i++)t[i]/=t[8];return`matrix3d(${t[0]},${t[3]},0,${t[6]},${t[1]},${t[4]},0,${t[7]},0,0,1,0,${t[2]},${t[5]},0,${t[8]})`}
+// screen corners in cover.jpg pixels: TL, TR, BL, BR
+const SCR=[878,262, 1221,236, 793,571, 1127,616];
+document.getElementById('screen').style.transform=proj([0,0,1000,0,0,640,1000,640],SCR);
+const stage=document.getElementById('stage'), coverSlide=document.getElementById('coverSlide');
+let zoomT;
+function stageTo(zoom){
+  const vw=innerWidth, vh=innerHeight;
+  let S,cx,cy;
+  if(!zoom){S=Math.max(vw/1344,vh/768);cx=672;cy=384}
+  else{S=Math.min(vw*0.9/(1221-793),vh*0.88/(616-236));cx=1007;cy=426}
+  stage.style.transform=`translate(${vw/2-cx*S}px,${vh/2-cy*S}px) scale(${S})`;
+}
+function playCover(){
+  clearTimeout(zoomT); coverSlide.classList.remove('zoomed');
+  stage.style.transition='none'; stageTo(false); stage.offsetWidth; stage.style.transition='';
+  zoomT=setTimeout(()=>{coverSlide.classList.add('zoomed');stageTo(true)},900);
+}
+addEventListener('resize',()=>{stage.style.transition='none';stageTo(coverSlide.classList.contains('zoomed'));stage.offsetWidth;stage.style.transition=''});
+const _show=show; show=function(){_show(); if(cur===0)playCover()};
 show();
 </script>
 </body>
