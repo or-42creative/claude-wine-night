@@ -54,6 +54,22 @@ ul.warn li::before{background:var(--wine2);box-shadow:0 0 14px var(--wine2)}
 
 .sec .secnum{font-family:Rubik,Heebo,sans-serif;font-weight:900;font-size:clamp(60px,10vw,170px);line-height:1;color:var(--amber);text-shadow:0 0 40px rgba(242,166,90,.45),0 0 4px rgba(0,0,0,.6)}
 .sec h1{font-size:clamp(44px,7vw,120px)}
+/* builds + entrance motion */
+.build{opacity:0;transform:translateY(24px) scale(.98);transition:opacity .55s ease,transform .55s cubic-bezier(.2,.8,.2,1)}
+.build.in{opacity:1;transform:none}
+@keyframes fadeUp{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
+.slide.on .content>*{animation:fadeUp .7s cubic-bezier(.2,.8,.2,1) both}
+.slide.on .content>*:nth-child(2){animation-delay:.12s}
+.slide.on .content>*:nth-child(3){animation-delay:.24s}
+.slide.on .content>*:nth-child(4){animation-delay:.36s}
+.slide.on ul.pts li{animation:fadeUp .6s cubic-bezier(.2,.8,.2,1) both}
+.slide.on ul.pts li:nth-child(1){animation-delay:.35s}.slide.on ul.pts li:nth-child(2){animation-delay:.5s}
+.slide.on ul.pts li:nth-child(3){animation-delay:.65s}.slide.on ul.pts li:nth-child(4){animation-delay:.8s}
+.slide.on ul.pts li:nth-child(5){animation-delay:.95s}
+.slide.on .g{animation:fadeUp .6s both}.slide.on .g:nth-child(2){animation-delay:.1s}.slide.on .g:nth-child(3){animation-delay:.2s}.slide.on .g:nth-child(4){animation-delay:.3s}.slide.on .g:nth-child(5){animation-delay:.4s}
+.col ul.pts li,.chips .chip{animation:none!important}
+.slide.on .bg{animation:kb 18s ease-out both}
+@keyframes kb{from{transform:scale(1.08)}to{transform:scale(1)}}
 /* compare */
 .vs{display:grid;grid-template-columns:1fr 1fr;gap:2vw;width:100%}
 .col{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:3vh 2vw;backdrop-filter:blur(6px)}
@@ -155,11 +171,11 @@ ul.warn li::before{background:var(--wine2);box-shadow:0 0 14px var(--wine2)}
   <div class="content" style="max-width:80vw">
     <h2>צ'אט <span class="amb">מול</span> קלוד דסקטופ</h2>
     <div class="vs">
-      <div class="col">
+      <div class="col build">
         <h3>💬 הצ'אט</h3>
         <ul class="pts"><li>מדבר</li><li>עונה על שאלות</li><li>אתן מעתיקות ומדביקות</li><li>חי בתוך חלון</li></ul>
       </div>
-      <div class="col hl">
+      <div class="col hl build">
         <h3>🛠️ קלוד קוד בדסקטופ</h3>
         <ul class="pts"><li><b>עושה</b></li><li>עובד על הקבצים שלכן</li><li>מפעיל דפדפן, מייל, יומן</li><li>חי בתוך המחשב</li></ul>
       </div>
@@ -464,16 +480,16 @@ ul.warn li::before{background:var(--wine2);box-shadow:0 0 14px var(--wine2)}
     <span class="tag">לכל השימושים</span>
     <h2>💡 איך לדבר עם קלוד</h2>
     <div class="chips">
-      <div class="chip"><b>ברור ומפורט</b>: מה, למי, איך זה ייראה</div>
-      <div class="chip"><b>דוגמה שווה אלף מילים</b>: צילום מסך, קובץ, קישור</div>
-      <div class="chip"><b>סקילים קיימים</b>: לא להמציא את הגלגל</div>
-      <div class="chip"><b>משימה חדשה = שיחה חדשה</b>: חוסך טוקנים</div>
-      <div class="chip"><b>נתקע?</b> "מה ניסית ואיפה זה נכשל?"</div>
-      <div class="chip"><b>שחקו עם מודלים</b>: Sonnet לפשוט, Fable לקשה</div>
-      <div class="chip"><b>"תשאל אותי שאלות לפני"</b>: חוסך סיבובים</div>
-      <div class="chip"><b>צעד אחר צעד</b>: משימה גדולה = כמה קטנות</div>
-      <div class="chip"><b>"תבדוק שזה עובד"</b>: שיפתח ויראה בעצמו</div>
-      <div class="chip"><b>"תזכור את זה"</b>: טעה? שילמד לפעם הבאה</div>
+      <div class="chip build"><b>ברור ומפורט</b>: מה, למי, איך זה ייראה</div>
+      <div class="chip build"><b>דוגמה שווה אלף מילים</b>: צילום מסך, קובץ, קישור</div>
+      <div class="chip build"><b>סקילים קיימים</b>: לא להמציא את הגלגל</div>
+      <div class="chip build"><b>משימה חדשה = שיחה חדשה</b>: חוסך טוקנים</div>
+      <div class="chip build"><b>נתקע?</b> "מה ניסית ואיפה זה נכשל?"</div>
+      <div class="chip build"><b>שחקו עם מודלים</b>: Sonnet לפשוט, Fable לקשה</div>
+      <div class="chip build"><b>"תשאל אותי שאלות לפני"</b>: חוסך סיבובים</div>
+      <div class="chip build"><b>צעד אחר צעד</b>: משימה גדולה = כמה קטנות</div>
+      <div class="chip build"><b>"תבדוק שזה עובד"</b>: שיפתח ויראה בעצמו</div>
+      <div class="chip build"><b>"תזכור את זה"</b>: טעה? שילמד לפעם הבאה</div>
     </div>
   </div>
 </section>
@@ -494,12 +510,12 @@ ul.warn li::before{background:var(--wine2);box-shadow:0 0 14px var(--wine2)}
     <span class="tag">למתקדמות · לחקור לבד</span>
     <h2>🧰 יש עוד…</h2>
     <div class="chips">
-      <div class="chip"><b>סקילים</b>: מתכון קבוע שקלוד זוכר</div>
-      <div class="chip"><b>פלאגינים</b>: חבילות יכולות מוכנות</div>
-      <div class="chip"><b>משימות מתוזמנות</b>: כל בוקר, לבד</div>
-      <div class="chip"><b>זיכרון</b>: הוא לומד אתכן</div>
-      <div class="chip"><b>סשנים במקביל</b>: כמה עובדים בבת אחת</div>
-      <div class="chip"><b>ארטיפקטים</b>: דפים לשתף בקליק</div>
+      <div class="chip build"><b>סקילים</b>: מתכון קבוע שקלוד זוכר</div>
+      <div class="chip build"><b>פלאגינים</b>: חבילות יכולות מוכנות</div>
+      <div class="chip build"><b>משימות מתוזמנות</b>: כל בוקר, לבד</div>
+      <div class="chip build"><b>זיכרון</b>: הוא לומד אתכן</div>
+      <div class="chip build"><b>סשנים במקביל</b>: כמה עובדים בבת אחת</div>
+      <div class="chip build"><b>ארטיפקטים</b>: דפים לשתף בקליק</div>
     </div>
     <div class="sub">פשוט תשאלו אותו: "איך עושים סקיל?"</div>
   </div>
@@ -614,6 +630,17 @@ next=function(){ if(cur===0&&coverStep<2){coverStep++;applyCover();return} _next
 prev=function(){ if(cur===0&&coverStep>0){coverStep--;applyCover();return} if(cur===1)coverStep=2; _prev() };
 addEventListener('resize',()=>{stage.style.transition='none';stageTo(coverSlide.classList.contains('zoomed'));stage.offsetWidth;stage.style.transition=''});
 const _show=show; show=function(){_show(); if(cur===0)playCover()};
+/* ---- click builds ---- */
+const _n2=next,_p2=prev;
+function builds(){return [...slides[cur].querySelectorAll('.build')]}
+next=function(){
+  if(!(cur===0&&coverStep<2)){const b=builds().find(x=>!x.classList.contains('in')); if(b){b.classList.add('in');return}}
+  const c=cur; _n2(); if(cur!==c) builds().forEach(x=>x.classList.remove('in'));
+};
+prev=function(){
+  const bi=builds().filter(x=>x.classList.contains('in')); if(bi.length){bi.pop().classList.remove('in');return}
+  const c=cur; _p2(); if(cur!==c) builds().forEach(x=>x.classList.add('in'));
+};
 show();
 </script>
 </body>
