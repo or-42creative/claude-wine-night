@@ -1,0 +1,436 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ערב קלוד ויין</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;600;800;900&family=Frank+Ruhl+Libre:wght@700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#140a0d; --wine:#7a1f35; --wine2:#b23a55; --amber:#f2a65a; --cream:#f7e9dc; --muted:#c9b1a6;
+  --card:rgba(30,14,19,.72); --line:rgba(242,166,90,.28);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:var(--bg);color:var(--cream);font-family:Heebo,system-ui,sans-serif;overflow:hidden}
+.deck{position:relative;width:100vw;height:100vh}
+.slide{position:absolute;inset:0;opacity:0;pointer-events:none;transition:opacity .6s ease, transform .6s ease;transform:scale(1.015);display:flex;overflow:hidden}
+.slide.on{opacity:1;pointer-events:auto;transform:none}
+.bg{position:absolute;inset:0;background-size:cover;background-position:center;z-index:0}
+.bg::after{content:"";position:absolute;inset:0;background:linear-gradient(270deg,rgba(20,10,13,.94) 0%,rgba(20,10,13,.78) 42%,rgba(20,10,13,.15) 100%)}
+.bg.full::after{background:radial-gradient(ellipse at center,rgba(20,10,13,.35),rgba(20,10,13,.9))}
+video.bg{object-fit:cover;width:100%;height:100%}
+.content{position:relative;z-index:1;padding:7vh 7vw;display:flex;flex-direction:column;justify-content:center;max-width:62vw;gap:3vh}
+.center .content{max-width:none;width:100%;align-items:center;text-align:center}
+.kicker{color:var(--amber);font-weight:600;letter-spacing:.08em;font-size:clamp(14px,1.5vw,22px)}
+h1{font-family:"Frank Ruhl Libre",serif;font-weight:900;font-size:clamp(40px,6.4vw,104px);line-height:1.02}
+h2{font-family:"Frank Ruhl Libre",serif;font-weight:900;font-size:clamp(32px,4.4vw,72px);line-height:1.08}
+.sub{font-size:clamp(18px,2.1vw,34px);color:var(--muted);font-weight:300}
+.wine{color:var(--wine2)} .amb{color:var(--amber)}
+ul.pts{list-style:none;display:flex;flex-direction:column;gap:1.6vh}
+ul.pts li{font-size:clamp(18px,2.15vw,34px);font-weight:400;padding-right:1.4em;position:relative;line-height:1.3}
+ul.pts li::before{content:"";position:absolute;right:0;top:.5em;width:.55em;height:.55em;border-radius:50%;background:var(--amber);box-shadow:0 0 14px var(--amber)}
+ul.pts li b{color:var(--amber);font-weight:600}
+ul.warn li::before{background:var(--wine2);box-shadow:0 0 14px var(--wine2)}
+.tag{display:inline-block;border:1px solid var(--line);color:var(--amber);border-radius:999px;padding:.2em .9em;font-size:clamp(13px,1.2vw,18px);font-weight:600;align-self:flex-start}
+.num{position:absolute;bottom:3vh;left:3vw;z-index:3;color:var(--muted);font-size:14px;opacity:.7;font-variant-numeric:tabular-nums}
+.progress{position:absolute;bottom:0;right:0;height:3px;background:linear-gradient(90deg,var(--amber),var(--wine2));z-index:3;transition:width .5s}
+
+/* compare */
+.vs{display:grid;grid-template-columns:1fr 1fr;gap:2vw;width:100%}
+.col{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:3vh 2vw;backdrop-filter:blur(6px)}
+.col h3{font-size:clamp(20px,2.4vw,38px);margin-bottom:2vh}
+.col.hl{border-color:var(--amber);box-shadow:0 0 40px rgba(242,166,90,.18)}
+.col ul.pts li{font-size:clamp(16px,1.8vw,28px)}
+
+/* grid examples */
+.grid5{display:grid;grid-template-columns:repeat(5,1fr);gap:1.4vw;width:100%;margin-top:2vh}
+.g{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:3vh 1vw;text-align:center;backdrop-filter:blur(6px)}
+.g .e{font-size:clamp(30px,4vw,64px)}
+.g .t{font-size:clamp(15px,1.6vw,26px);font-weight:600;margin-top:1vh}
+.g .d{font-size:clamp(12px,1.15vw,18px);color:var(--muted);margin-top:.5vh}
+
+/* advanced chips */
+.chips{display:grid;grid-template-columns:repeat(2,1fr);gap:1.4vh 1.6vw}
+.chip{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:1.6vh 1.2vw;font-size:clamp(15px,1.55vw,25px)}
+.chip b{color:var(--amber)}
+
+/* phone box */
+.phone{background:var(--wine);border-radius:18px;padding:2vh 2vw;font-size:clamp(18px,2vw,32px);font-weight:600;align-self:flex-start;box-shadow:0 0 40px rgba(178,58,85,.4)}
+.phone .n{font-size:clamp(28px,3.4vw,56px);font-weight:900;color:#fff;direction:ltr;display:inline-block}
+
+/* ---------- Claude mockup ---------- */
+.tour{display:grid;grid-template-columns:1.55fr 1fr;gap:3vw;align-items:center;width:100%;padding:5vh 5vw;position:relative;z-index:1}
+.app{direction:ltr;position:relative;background:#262624;border-radius:14px;border:1px solid #3a3936;box-shadow:0 30px 80px rgba(0,0,0,.6);aspect-ratio:16/10;display:grid;grid-template-columns:22% 1fr;overflow:hidden;font-family:system-ui,-apple-system,"Segoe UI",sans-serif;color:#e8e6e1;font-size:clamp(8px,.85vw,14px)}
+.app .side{background:#1f1e1d;border-right:1px solid #33322f;padding:1.2em .9em;display:flex;flex-direction:column;gap:.55em}
+.app .tabs{display:flex;gap:.3em;margin-bottom:.6em}
+.app .tabs span{flex:1;text-align:center;padding:.35em 0;border-radius:6px;background:#2b2a28;color:#a8a49c;font-size:.9em}
+.app .tabs span.a{background:#3a3936;color:#fff}
+.app .new{background:#c96442;color:#fff;border-radius:7px;padding:.55em .7em;font-weight:600}
+.app .ses{padding:.45em .6em;border-radius:6px;color:#bdb8ae;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.app .ses.a{background:#2f2e2b;color:#fff}
+.app .main{display:flex;flex-direction:column;padding:1.2em 1.6em;gap:.9em}
+.app .top{display:flex;justify-content:space-between;align-items:center;color:#a8a49c}
+.app .msg{background:#30302e;border-radius:10px;padding:.8em 1em;align-self:flex-end;max-width:70%}
+.app .rsp{color:#d6d2c9;line-height:1.55;max-width:88%}
+.app .tool{border:1px solid #3a3936;border-radius:8px;padding:.5em .8em;color:#a8a49c;font-family:ui-monospace,Consolas,monospace;font-size:.9em}
+.app .tool i{color:#7fb37f;font-style:normal}
+.app .spacer{flex:1}
+.app .box{background:#30302e;border:1px solid #44433f;border-radius:14px;padding:.9em 1em;display:flex;flex-direction:column;gap:.8em}
+.app .ph{color:#8f8b83}
+.app .bar{display:flex;gap:.5em;align-items:center;flex-wrap:wrap}
+.app .pill{border:1px solid #4a4945;border-radius:999px;padding:.3em .8em;color:#d6d2c9;white-space:nowrap}
+.app .send{margin-left:auto;background:#c96442;width:2.2em;height:2.2em;border-radius:50%;display:grid;place-items:center;color:#fff}
+.app .ctx{display:flex;align-items:center;gap:.4em;color:#a8a49c}
+.app .ring{width:1.4em;height:1.4em;border-radius:50%;background:conic-gradient(#c96442 0 38%,#4a4945 38% 100%)}
+.hot{position:absolute;border:2.5px solid var(--amber);border-radius:12px;box-shadow:0 0 0 9999px rgba(10,5,7,.62),0 0 30px var(--amber);transition:all .55s cubic-bezier(.7,0,.2,1);pointer-events:none;z-index:5}
+.explain{display:flex;flex-direction:column;gap:2vh}
+.step-n{color:var(--amber);font-weight:800;font-size:clamp(14px,1.4vw,22px)}
+.explain h3{font-family:"Frank Ruhl Libre",serif;font-size:clamp(28px,3.4vw,56px);line-height:1.1}
+.explain p{font-size:clamp(17px,1.9vw,30px);color:var(--muted);line-height:1.45}
+.dots{display:flex;gap:.6em;margin-top:1vh}
+.dots i{width:.7em;height:.7em;border-radius:50%;background:#4a3a3d}
+.dots i.a{background:var(--amber)}
+.hint{position:absolute;bottom:3vh;right:3vw;color:var(--muted);font-size:13px;opacity:.55;z-index:3}
+
+@media (max-width:760px){
+  .content{max-width:100vw;padding:6vh 16px}
+  .vs,.grid5,.chips,.tour{grid-template-columns:1fr}
+  .bg::after{background:rgba(20,10,13,.82)}
+}
+</style>
+</head>
+<body>
+<div class="deck" id="deck">
+
+<!-- 1 -->
+<section class="slide center">
+  <video class="bg full" id="coverVid" autoplay muted loop playsinline poster="img/cover.jpg"><source src="img/cover.mp4" type="video/mp4"></video>
+  <div class="bg full" style="background-image:url(img/cover.jpg);z-index:-1"></div>
+  <div class="content">
+    <div class="kicker">ברוכות הבאות לערב שישנה את חייכן</div>
+    <h1>ערב <span class="amb">קלוד</span> ו<span class="wine">יין</span> 🍷</h1>
+    <div class="sub">שעה אחת. כוס אחת. מחשב שעובד בשבילכן.</div>
+  </div>
+</section>
+
+<!-- 2 -->
+<section class="slide">
+  <div class="bg" style="background-image:url(img/chat_vs_desktop.jpg)"></div>
+  <div class="content" style="max-width:80vw">
+    <h2>צ'אט <span class="amb">מול</span> קלוד דסקטופ</h2>
+    <div class="vs">
+      <div class="col">
+        <h3>💬 הצ'אט</h3>
+        <ul class="pts"><li>מדבר</li><li>עונה על שאלות</li><li>אתן מעתיקות ומדביקות</li><li>חי בתוך חלון</li></ul>
+      </div>
+      <div class="col hl">
+        <h3>🛠️ קלוד קוד בדסקטופ</h3>
+        <ul class="pts"><li><b>עושה</b></li><li>עובד על הקבצים שלכן</li><li>מפעיל דפדפן, מייל, יומן</li><li>חי בתוך המחשב</li></ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 3 -->
+<section class="slide center">
+  <div class="bg full" style="background-image:url(img/real_world.jpg)"></div>
+  <div class="content">
+    <h1>הוא <span class="amb">עושה דברים</span><br>בעולם האמיתי!</h1>
+    <div class="sub">לא רק אומר לכן מה לעשות. עושה את זה בעצמו.</div>
+  </div>
+</section>
+
+<!-- 4 -->
+<section class="slide center">
+  <div class="bg full" style="background-image:url(img/examples.jpg)"></div>
+  <div class="content" style="max-width:none">
+    <h2>מה נראה <span class="amb">הערב?</span></h2>
+    <div class="grid5">
+      <div class="g"><div class="e">🎬</div><div class="t">עריכת סרטונים</div><div class="d">עם FAL</div></div>
+      <div class="g"><div class="e">🖼️</div><div class="t">מצגת HTML</div><div class="d">FAL + גיטהאב</div></div>
+      <div class="g"><div class="e">🌐</div><div class="t">דפדפן</div><div class="d">קמפיינים ומשימות מסובכות</div></div>
+      <div class="g"><div class="e">📬</div><div class="t">קונקטורים</div><div class="d">מייל, יומן, דרייב</div></div>
+      <div class="g"><div class="e">💻</div><div class="t">המחשב שלכן</div><div class="d">תיקיות, מקום, ראוטר</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 5: interactive tour -->
+<section class="slide" id="tourSlide">
+  <div class="bg full" style="background:radial-gradient(ellipse at 30% 40%,#2a1218,#100709)"></div>
+  <div class="tour">
+    <div class="app" id="app">
+      <div class="side" data-h="side">
+        <div class="tabs"><span>Chat</span><span>Cowork</span><span class="a">Code</span></div>
+        <div class="new">+ New session</div>
+        <div class="ses a">ערב קלוד ויין – מצגת</div>
+        <div class="ses">לסדר את תיקיית ההורדות</div>
+        <div class="ses">סרטון יום הולדת לאמא</div>
+        <div class="ses">קמפיין מטא – נובמבר</div>
+        <div class="ses">מה יש לי ביומן השבוע?</div>
+      </div>
+      <div class="main">
+        <div class="top"><span>📁 Downloads / קלוד ויין</span><span>⋯</span></div>
+        <div class="msg">תבנה לי מצגת לערב קלוד ויין, עם תמונות מ-FAL</div>
+        <div class="tool"><i>✓</i> Write deck/index.html</div>
+        <div class="tool"><i>✓</i> Generate 12 images · $0.48</div>
+        <div class="rsp">המצגת מוכנה! יצרתי 12 תמונות והעליתי לגיטהאב. רוצה שאפתח אותה בדפדפן?</div>
+        <div class="spacer"></div>
+        <div class="box" data-h="box">
+          <div class="ph">מה עושים היום? אפשר לגרור לכאן קבצים…</div>
+          <div class="bar">
+            <span class="pill" data-h="folder">📁 קלוד ויין ▾</span>
+            <span class="pill" data-h="model">Opus ▾</span>
+            <span class="pill" data-h="perm">🛡️ Ask permissions ▾</span>
+            <span class="ctx" data-h="ctx"><span class="ring"></span>38%</span>
+            <span class="send">↑</span>
+          </div>
+        </div>
+      </div>
+      <div class="hot" id="hot"></div>
+    </div>
+    <div class="explain">
+      <div class="step-n" id="stepN">1 / 6</div>
+      <h3 id="stepT"></h3>
+      <p id="stepP"></p>
+      <div class="dots" id="dots"></div>
+    </div>
+  </div>
+</section>
+
+<!-- 6-7 video -->
+<section class="slide">
+  <div class="bg" style="background-image:url(img/video.jpg)"></div>
+  <div class="content">
+    <span class="tag">1 · עריכת סרטונים</span>
+    <h2>🎬 איך עושים את זה</h2>
+    <ul class="pts">
+      <li>פותחים חשבון ב-<b>fal.ai</b> ושמים מפתח בתיקייה</li>
+      <li>זורקים סרטון לתיקייה</li>
+      <li>"תחתוך שתיקות, תוסיף כתוביות ומוזיקה"</li>
+      <li>צריך תמונה/קטע חסר? FAL מייצר</li>
+      <li>מבקשות תיקונים בשפה רגילה</li>
+    </ul>
+  </div>
+</section>
+<section class="slide">
+  <div class="bg" style="background-image:url(img/video.jpg)"></div>
+  <div class="content">
+    <span class="tag">1 · עריכת סרטונים</span>
+    <h2>⚠️ דגשים</h2>
+    <ul class="pts warn">
+      <li><b>מגדירים תקציב</b> לכל פרויקט ("עד 3$")</li>
+      <li>FAL גובה כסף על כל יצירה</li>
+      <li>עובדים על עותק, לא על המקור</li>
+      <li>צופים בתוצאה לפני שמפרסמים</li>
+    </ul>
+  </div>
+</section>
+
+<!-- 8-9 slides -->
+<section class="slide">
+  <div class="bg" style="background-image:url(img/slides.jpg)"></div>
+  <div class="content">
+    <span class="tag">2 · מצגת HTML</span>
+    <h2>🖼️ איך עושים את זה</h2>
+    <ul class="pts">
+      <li>"תבנה לי מצגת HTML על…"</li>
+      <li>נותנות ראשי פרקים, הוא בונה</li>
+      <li>תמונות ב-FAL</li>
+      <li>מעלים לגיטהאב ← <b>קישור לשיתוף</b></li>
+      <li>(בדיוק כמו המצגת הזאת 😉)</li>
+    </ul>
+  </div>
+</section>
+<section class="slide">
+  <div class="bg" style="background-image:url(img/slides.jpg)"></div>
+  <div class="content">
+    <span class="tag">2 · מצגת HTML</span>
+    <h2>⚠️ דגשים</h2>
+    <ul class="pts warn">
+      <li>ראשי פרקים, לא נאומים</li>
+      <li>גיטהאב ציבורי = <b>כולם יכולים לראות</b></li>
+      <li>בלי מידע אישי או רגיש</li>
+      <li>תקציב FAL גם כאן</li>
+    </ul>
+  </div>
+</section>
+
+<!-- 10-11 browser -->
+<section class="slide">
+  <div class="bg" style="background-image:url(img/browser.jpg)"></div>
+  <div class="content">
+    <span class="tag">3 · דפדפן</span>
+    <h2>🌐 איך עושים את זה</h2>
+    <ul class="pts">
+      <li>מתקינים את התוסף <b>Claude in Chrome</b></li>
+      <li>"תקים לי קמפיין במטא עם…"</li>
+      <li>צופות בו לוחץ, ממלא, מנווט</li>
+      <li>משימות ארוכות ומשעממות = בדיוק בשבילו</li>
+    </ul>
+  </div>
+</section>
+<section class="slide">
+  <div class="bg" style="background-image:url(img/browser.jpg)"></div>
+  <div class="content">
+    <span class="tag">3 · דפדפן</span>
+    <h2>⚠️ דגשים</h2>
+    <ul class="pts warn">
+      <li><b>לא שולחים לו סיסמאות</b>: מתחברות לבד</li>
+      <li>לא נותנים פרטי אשראי</li>
+      <li>הוא עוצר לפני תשלום/פרסום: אתן מאשרות</li>
+      <li>בודקות תקציב קמפיין פעמיים</li>
+    </ul>
+  </div>
+</section>
+
+<!-- 12-13 connectors -->
+<section class="slide">
+  <div class="bg" style="background-image:url(img/connectors.jpg)"></div>
+  <div class="content">
+    <span class="tag">4 · קונקטורים</span>
+    <h2>📬 איך עושים את זה</h2>
+    <ul class="pts">
+      <li>הגדרות ← <b>Connectors</b> ← Gmail, יומן, דרייב</li>
+      <li>"מה יש לי מחר?"</li>
+      <li>"תקבע פגישה ותוציא קישור לזום"</li>
+      <li>"תנסח תשובה למייל של…"</li>
+    </ul>
+  </div>
+</section>
+<section class="slide">
+  <div class="bg" style="background-image:url(img/connectors.jpg)"></div>
+  <div class="content">
+    <span class="tag">4 · קונקטורים</span>
+    <h2>⚠️ דגשים</h2>
+    <ul class="pts warn">
+      <li>מבקשות <b>טיוטה</b>, לא שליחה</li>
+      <li>בודקות למי זה הולך</li>
+      <li>מחברות רק מה שצריך</li>
+    </ul>
+  </div>
+</section>
+
+<!-- 14-15 computer -->
+<section class="slide">
+  <div class="bg" style="background-image:url(img/computer.jpg)"></div>
+  <div class="content">
+    <span class="tag">5 · המחשב שלכן</span>
+    <h2>💻 איך עושים את זה</h2>
+    <ul class="pts">
+      <li>בוחרות תיקייה (למשל הורדות)</li>
+      <li>"תסדר לי את התיקייה לפי סוג ותאריך"</li>
+      <li>"מה תופס לי מקום בדיסק?"</li>
+      <li>"תעזור לי להגדיר את הראוטר"</li>
+    </ul>
+  </div>
+</section>
+<section class="slide">
+  <div class="bg" style="background-image:url(img/computer.jpg)"></div>
+  <div class="content">
+    <span class="tag">5 · המחשב שלכן</span>
+    <h2>⚠️ דגשים</h2>
+    <ul class="pts warn">
+      <li>קודם <b>רשימה</b>, אחר כך מחיקה</li>
+      <li>לסל המחזור, לא מחיקה סופית</li>
+      <li>גיבוי לפני שינויים גדולים</li>
+      <li>סיסמת ראוטר: מקלידות לבד</li>
+    </ul>
+  </div>
+</section>
+
+<!-- 16 advanced -->
+<section class="slide">
+  <div class="bg" style="background-image:url(img/advanced.jpg)"></div>
+  <div class="content" style="max-width:70vw">
+    <span class="tag">למתקדמות · לחקור לבד</span>
+    <h2>🧰 יש עוד…</h2>
+    <div class="chips">
+      <div class="chip"><b>סקילים</b>: מתכון קבוע שקלוד זוכר</div>
+      <div class="chip"><b>פלאגינים</b>: חבילות יכולות מוכנות</div>
+      <div class="chip"><b>משימות מתוזמנות</b>: כל בוקר, לבד</div>
+      <div class="chip"><b>זיכרון</b>: הוא לומד אתכן</div>
+      <div class="chip"><b>סשנים במקביל</b>: כמה עובדים בבת אחת</div>
+      <div class="chip"><b>ארטיפקטים</b>: דפים לשתף בקליק</div>
+    </div>
+    <div class="sub">פשוט תשאלו אותו: "איך עושים סקיל?"</div>
+  </div>
+</section>
+
+<!-- 17 addiction -->
+<section class="slide">
+  <div class="bg" style="background-image:url(img/addiction.jpg)"></div>
+  <div class="content">
+    <h2>🚨 טיפים להתמכרות לקלוד</h2>
+    <ul class="pts">
+      <li>"עוד פרומפט אחד" זה שקר</li>
+      <li>אין סשנים אחרי חצות</li>
+      <li>הוא עובד? אתן יוצאות להליכה</li>
+      <li>לא לספר לבן הזוג כמה זמן עבר</li>
+    </ul>
+    <div class="phone">המרכז הארצי להתמכרויות<br><span class="n" id="hotline">⚠️ להשלים מספר</span></div>
+  </div>
+</section>
+
+<!-- 18 thanks -->
+<section class="slide center">
+  <div class="bg full" style="background-image:url(img/thanks.jpg)"></div>
+  <div class="content">
+    <h1>תודה! <span class="wine">לחיים</span> 🥂</h1>
+    <div class="sub">עכשיו לכו לעשות משהו מטורף עם הקלוד שלכן</div>
+  </div>
+</section>
+
+<div class="progress" id="prog"></div>
+<div class="num" id="num"></div>
+<div class="hint">← / רווח / קליק להמשך</div>
+</div>
+
+<script>
+const slides=[...document.querySelectorAll('.slide')];
+const tourIdx=slides.indexOf(document.getElementById('tourSlide'));
+const steps=[
+ {h:'side',t:'השיחות שלכן',p:'כל משימה = סשן. אפשר לחזור לכל שיחה, ולהריץ כמה במקביל.'},
+ {h:'folder',t:'בחירת תיקייה',p:'הכי חשוב! קלוד עובד רק בתיקייה שבחרתן. פרויקט חדש = תיקייה חדשה.'},
+ {h:'model',t:'בחירת מודל',p:'Opus: הכי חכם. Sonnet: מהיר וחסכוני. Haiku: למשימות קטנות.'},
+ {h:'perm',t:'מצב הרשאות',p:'מתי הוא שואל אתכן לפני שהוא עושה משהו. בהתחלה: תנו לו לשאול.'},
+ {h:'ctx',t:'ניצול טוקנים',p:'כמה "זיכרון" השיחה כבר תפסה. המנוי מוגבל בשימוש ומתאפס כל כמה שעות. שיחה ארוכה מדי? פותחות חדשה.'},
+ {h:'box',t:'פשוט לבקש',p:'כותבות בעברית רגילה, גוררות קבצים או צילומי מסך, ולוחצות אנטר.'}
+];
+let cur=0, step=0;
+const hot=document.getElementById('hot'), app=document.getElementById('app');
+document.getElementById('dots').innerHTML=steps.map(()=>'<i></i>').join('');
+function placeHot(){
+  const s=steps[step]; const el=app.querySelector(`[data-h="${s.h}"]`);
+  const a=app.getBoundingClientRect(), r=el.getBoundingClientRect(), pad=6;
+  Object.assign(hot.style,{left:(r.left-a.left-pad)+'px',top:(r.top-a.top-pad)+'px',width:(r.width+pad*2)+'px',height:(r.height+pad*2)+'px'});
+  document.getElementById('stepN').textContent=`${step+1} / ${steps.length}`;
+  document.getElementById('stepT').textContent=s.t;
+  document.getElementById('stepP').textContent=s.p;
+  [...document.querySelectorAll('#dots i')].forEach((d,i)=>d.classList.toggle('a',i===step));
+}
+function show(){
+  slides.forEach((s,i)=>s.classList.toggle('on',i===cur));
+  document.getElementById('num').textContent=`${cur+1} / ${slides.length}`;
+  document.getElementById('prog').style.width=((cur+1)/slides.length*100)+'%';
+  if(cur===tourIdx) requestAnimationFrame(placeHot);
+  try{history.replaceState(null,'','#'+(cur+1))}catch(e){}
+}
+function next(){ if(cur===tourIdx&&step<steps.length-1){step++;placeHot();return} if(cur<slides.length-1){cur++; if(cur===tourIdx)step=0; show()} }
+function prev(){ if(cur===tourIdx&&step>0){step--;placeHot();return} if(cur>0){cur--; if(cur===tourIdx)step=steps.length-1; show()} }
+addEventListener('keydown',e=>{
+  if(['ArrowLeft','ArrowDown',' ','PageDown','Enter'].includes(e.key)){e.preventDefault();next()}
+  else if(['ArrowRight','ArrowUp','PageUp','Backspace'].includes(e.key)){e.preventDefault();prev()}
+  else if(e.key==='Home'){cur=0;show()} else if(e.key==='End'){cur=slides.length-1;show()}
+  else if(e.key==='f'){document.documentElement.requestFullscreen?.()}
+});
+addEventListener('click',e=>{ (e.clientX<innerWidth*0.25&&false)?prev():next() });
+addEventListener('contextmenu',e=>{e.preventDefault();prev()});
+addEventListener('resize',()=>{if(cur===tourIdx)placeHot()});
+const h=parseInt(location.hash.slice(1)); if(h>0&&h<=slides.length)cur=h-1;
+document.getElementById('coverVid').addEventListener('error',()=>{},true);
+show();
+</script>
+</body>
+</html>
