@@ -67,7 +67,7 @@ ul.warn li::before{background:var(--wine2);box-shadow:0 0 14px var(--wine2)}
 .slide.on ul.pts li:nth-child(3){animation-delay:.65s}.slide.on ul.pts li:nth-child(4){animation-delay:.8s}
 .slide.on ul.pts li:nth-child(5){animation-delay:.95s}
 .slide.on .g{animation:fadeUp .6s both}.slide.on .g:nth-child(2){animation-delay:.1s}.slide.on .g:nth-child(3){animation-delay:.2s}.slide.on .g:nth-child(4){animation-delay:.3s}.slide.on .g:nth-child(5){animation-delay:.4s}
-.col ul.pts li,.chips .chip{animation:none!important}
+.col ul.pts li,.chips .chip,ul.pts li.build,.phone.build{animation:none!important}
 .slide.on .bg{animation:kb 18s ease-out both}
 @keyframes kb{from{transform:scale(1.08)}to{transform:scale(1)}}
 /* compare */
@@ -464,6 +464,34 @@ ul.warn li::before{background:var(--wine2);box-shadow:0 0 14px var(--wine2)}
   </div>
 </section>
 
+<!-- phone -->
+<section class="slide center sec">
+  <div class="bg full" style="background-image:url(img/phone.jpg)"></div>
+  <div class="content">
+    <div class="secnum">06</div>
+    <h1>קלוד בטלפון 📱</h1>
+    <div class="sub">לעבוד גם מהספה</div>
+  </div>
+</section>
+
+<section class="slide">
+  <div class="bg" style="background-image:url(img/phone.jpg)"></div>
+  <div class="content" style="max-width:80vw">
+    <span class="tag">06 · קלוד בטלפון</span>
+    <h2>☁️ ענן <span class="amb">מול</span> 📡 רימוט</h2>
+    <div class="vs">
+      <div class="col build">
+        <h3>☁️ ענן (Cloud)</h3>
+        <ul class="pts"><li>רץ בשרתים של Anthropic</li><li>המחשב יכול להיות <b>כבוי</b></li><li>עובד על פרויקט מגיטהאב</li><li>אין גישה לקבצים ולתוכנות במחשב</li></ul>
+      </div>
+      <div class="col hl build">
+        <h3>📡 רימוט (Remote Control)</h3>
+        <ul class="pts"><li>שלט רחוק למחשב שלכן</li><li>המחשב חייב להיות <b>דלוק</b></li><li>גישה לכל הקבצים, הדפדפן והקונקטורים</li><li>ממשיכות מהטלפון שיחה שהתחלתן במחשב</li></ul>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section class="slide center sec">
   <div class="bg full" style="background-image:url(img/tips.jpg)"></div>
   <div class="content">
@@ -525,14 +553,14 @@ ul.warn li::before{background:var(--wine2);box-shadow:0 0 14px var(--wine2)}
 <section class="slide">
   <div class="bg" style="background-image:url(img/addiction.jpg)"></div>
   <div class="content">
-    <h2>🚨 טיפים להתמכרות לקלוד</h2>
+    <h2>🚨 תסמינים להתמכרות לקלוד</h2>
     <ul class="pts">
-      <li>"עוד פרומפט אחד" זה שקר</li>
-      <li>אין סשנים אחרי חצות</li>
-      <li>הוא עובד? אתן יוצאות להליכה</li>
-      <li>לא לספר לבן הזוג כמה זמן עבר</li>
+      <li class="build">קמות באמצע הלילה לפיפי ובודקות את הקלוד</li>
+      <li class="build">קונות עוד ועוד טוקנים</li>
+      <li class="build">מאחרות למקומות כדי לתת לקלוד משימות</li>
+      <li class="build">הרגל קופצת כשקלוד נח, כאילו הוא בעלך</li>
     </ul>
-    <div class="phone">המרכז הארצי להתמכרויות<br><span class="n" id="hotline">⚠️ להשלים מספר</span></div>
+    <div class="phone build">בכל מקרה כזה אל תהססו, פנו ל<br>מכורים אנונימיים בישראל<br><span class="n">03-374-7474</span></div>
   </div>
 </section>
 
