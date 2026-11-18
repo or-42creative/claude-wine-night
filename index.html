@@ -86,6 +86,19 @@ ul.warn li::before{background:var(--wine2);box-shadow:0 0 14px var(--wine2)}
 .app .send{margin-left:auto;background:#c96442;width:2.2em;height:2.2em;border-radius:50%;display:grid;place-items:center;color:#fff}
 .app .ctx{display:flex;align-items:center;gap:.4em;color:#a8a49c}
 .app .ring{width:1.4em;height:1.4em;border-radius:50%;background:conic-gradient(#c96442 0 38%,#4a4945 38% 100%)}
+.app .anchor{position:relative}
+.app .pop{position:absolute;bottom:calc(100% + .9em);left:0;width:19em;background:#2b2a28;border:1px solid #4a4945;border-radius:12px;padding:.8em;box-shadow:0 14px 40px rgba(0,0,0,.55);opacity:0;transform:translateY(8px);transition:opacity .35s,transform .35s;pointer-events:none;z-index:4;white-space:normal}
+.app .pop.right{left:auto;right:-3em;width:17em}
+.app .pop.show{opacity:1;transform:none}
+.app .ph2{color:#8f8b83;font-size:.85em;margin-bottom:.5em}
+.app .mo{display:flex;justify-content:space-between;align-items:center;gap:1em;padding:.55em .6em;border-radius:7px}
+.app .mo b{color:#fff}
+.app .mo span{direction:rtl;color:#d6d2c9}
+.app .mo.sel{background:#3a3936}
+.app .meter{height:.45em;background:#44433f;border-radius:99px;overflow:hidden;margin:.35em 0}
+.app .meter i{display:block;height:100%;background:#c96442;border-radius:99px}
+.app .ml{display:flex;justify-content:space-between;color:#d6d2c9;font-size:.9em}
+.app .ml.dim{color:#8f8b83}
 .hot{position:absolute;border:2.5px solid var(--amber);border-radius:12px;box-shadow:0 0 0 9999px rgba(10,5,7,.62),0 0 30px var(--amber);transition:all .55s cubic-bezier(.7,0,.2,1);pointer-events:none;z-index:5}
 .explain{display:flex;flex-direction:column;gap:2vh}
 .step-n{color:var(--amber);font-weight:800;font-size:clamp(14px,1.4vw,22px)}
@@ -184,9 +197,28 @@ ul.warn li::before{background:var(--wine2);box-shadow:0 0 14px var(--wine2)}
           <div class="ph">מה עושים היום? אפשר לגרור לכאן קבצים…</div>
           <div class="bar">
             <span class="pill" data-h="folder">📁 קלוד ויין ▾</span>
-            <span class="pill" data-h="model">Opus ▾</span>
+            <span class="pill anchor">Opus ▾
+              <div class="pop" id="pop-model" data-h="modelpop">
+                <div class="ph2">Model</div>
+                <div class="mo"><b>Sonnet</b><span>חסכוני, לעניים 💸</span></div>
+                <div class="mo sel"><b>Opus</b><span>הרגיל שלכם ✓</span></div>
+                <div class="mo"><b>Fable</b><span>גאון שבולע טוקנים 🧠🔥</span></div>
+              </div>
+            </span>
             <span class="pill" data-h="perm">🛡️ Ask permissions ▾</span>
-            <span class="ctx" data-h="ctx"><span class="ring"></span>38%</span>
+            <span class="ctx anchor"><span class="ring"></span>38%
+              <div class="pop right" id="pop-ctx" data-h="ctxpop">
+                <div class="ph2">Context window</div>
+                <div class="meter"><i style="width:38%"></i></div>
+                <div class="ml"><span>38% used</span><span>76k / 200k</span></div>
+                <div class="ph2" style="margin-top:.9em">Plan usage · Pro</div>
+                <div class="ml"><span>Current session</span><span>62%</span></div>
+                <div class="meter"><i style="width:62%;background:#e0a24a"></i></div>
+                <div class="ml dim"><span>Resets in 2h 14m</span></div>
+                <div class="ml" style="margin-top:.5em"><span>Weekly</span><span>35%</span></div>
+                <div class="meter"><i style="width:35%"></i></div>
+              </div>
+            </span>
             <span class="send">↑</span>
           </div>
         </div>
@@ -396,9 +428,9 @@ const tourIdx=slides.indexOf(document.getElementById('tourSlide'));
 const steps=[
  {h:'side',t:'השיחות שלכן',p:'כל משימה = סשן. אפשר לחזור לכל שיחה, ולהריץ כמה במקביל.'},
  {h:'folder',t:'בחירת תיקייה',p:'הכי חשוב! קלוד עובד רק בתיקייה שבחרתן. פרויקט חדש = תיקייה חדשה.'},
- {h:'model',t:'בחירת מודל',p:'Opus: הכי חכם. Sonnet: מהיר וחסכוני. Haiku: למשימות קטנות.'},
+ {h:'modelpop',t:'בחירת מודל',p:'Sonnet: חסכוני, לעניים. Opus: הרגיל שלכם. Fable: גאון שבולע טוקנים.'},
  {h:'perm',t:'מצב הרשאות',p:'מתי הוא שואל אתכן לפני שהוא עושה משהו. בהתחלה: תנו לו לשאול.'},
- {h:'ctx',t:'ניצול טוקנים',p:'כמה "זיכרון" השיחה כבר תפסה. המנוי מוגבל בשימוש ומתאפס כל כמה שעות. שיחה ארוכה מדי? פותחות חדשה.'},
+ {h:'ctxpop',t:'ניצול טוקנים',p:'למעלה: כמה מהזיכרון של השיחה כבר תפוס. למטה: כמה נשאר מהמנוי, ומתי זה מתאפס. נגמר? מחכות או עוברות ל-Sonnet.'},
  {h:'box',t:'פשוט לבקש',p:'כותבות בעברית רגילה, גוררות קבצים או צילומי מסך, ולוחצות אנטר.'}
 ];
 let cur=0, step=0;
@@ -406,8 +438,15 @@ const hot=document.getElementById('hot'), app=document.getElementById('app');
 document.getElementById('dots').innerHTML=steps.map(()=>'<i></i>').join('');
 function placeHot(){
   const s=steps[step]; const el=app.querySelector(`[data-h="${s.h}"]`);
+  app.querySelectorAll('.pop').forEach(p=>p.classList.toggle('show',p===el));
+  if(el.classList.contains('pop')){ hot.style.opacity=0; setTimeout(()=>{hot.style.opacity=1;placeRect(el)},360); textStep(s); return }
+  placeRect(el); textStep(s);
+}
+function placeRect(el){
   const a=app.getBoundingClientRect(), r=el.getBoundingClientRect(), pad=6;
   Object.assign(hot.style,{left:(r.left-a.left-pad)+'px',top:(r.top-a.top-pad)+'px',width:(r.width+pad*2)+'px',height:(r.height+pad*2)+'px'});
+}
+function textStep(s){
   document.getElementById('stepN').textContent=`${step+1} / ${steps.length}`;
   document.getElementById('stepT').textContent=s.t;
   document.getElementById('stepP').textContent=s.p;
