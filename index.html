@@ -70,6 +70,10 @@ ul.warn li::before{background:var(--wine2);box-shadow:0 0 14px var(--wine2)}
 .col ul.pts li,.chips .chip,ul.pts li.build,.phone.build,.content>.build{animation:none!important}
 .slide.on .bg{animation:kb 18s ease-out both}
 @keyframes kb{from{transform:scale(1.08)}to{transform:scale(1)}}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:1.4vw;width:min(1200px,90vw)}
+.grid4 .g{padding:2.2vh 1vw}
+.slide.on .grid4 .g{animation:none!important}
+@media (max-width:760px){.grid4{grid-template-columns:repeat(2,1fr)}}
 /* compare */
 .vs{display:grid;grid-template-columns:1fr 1fr;gap:2vw;width:100%}
 .col{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:3vh 2vw;backdrop-filter:blur(6px)}
@@ -462,6 +466,27 @@ ul.warn li::before{background:var(--wine2);box-shadow:0 0 14px var(--wine2)}
       <li>בודקות למי זה הולך</li>
       <li>מחברות רק מה שצריך</li>
     </ul>
+  </div>
+</section>
+
+<!-- mcp -->
+<section class="slide center">
+  <div class="bg full" style="background-image:url(img/connectors.jpg)"></div>
+  <div class="content" style="max-width:none">
+    <span class="tag" style="align-self:center">04 · קונקטורים</span>
+    <h2>🔌 MCP: לחבר את קלוד <span class="amb">לכל דבר</span></h2>
+    <div class="sub">תקע אוניברסלי. הכלים שאתן כבר משתמשות בהם, בלי לפתוח אותם</div>
+    <div class="grid4">
+      <div class="g build"><div class="e">🎨</div><div class="t">Canva</div><div class="d">עיצובים ופוסטים</div></div>
+      <div class="g build"><div class="e">📝</div><div class="t">Notion</div><div class="d">מסמכים ומשימות</div></div>
+      <div class="g build"><div class="e">✏️</div><div class="t">Figma</div><div class="d">עיצוב ממשקים</div></div>
+      <div class="g build"><div class="e">📋</div><div class="t">monday.com</div><div class="d">ניהול פרויקטים</div></div>
+      <div class="g build"><div class="e">💬</div><div class="t">Slack</div><div class="d">הודעות לצוות</div></div>
+      <div class="g build"><div class="e">🔗</div><div class="t">Zapier</div><div class="d">אלפי אפליקציות</div></div>
+      <div class="g build"><div class="e">💳</div><div class="t">Stripe</div><div class="d">תשלומים ולקוחות</div></div>
+      <div class="g build"><div class="e">🗄️</div><div class="t">Supabase</div><div class="d">מסדי נתונים</div></div>
+    </div>
+    <div class="sub build">הגדרות ← Connectors ← Browse. או פשוט: "תחבר אותי ל-Canva"</div>
   </div>
 </section>
 
