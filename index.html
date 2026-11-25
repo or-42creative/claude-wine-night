@@ -37,6 +37,11 @@ ul.warn li::before{background:var(--wine2);box-shadow:0 0 14px var(--wine2)}
 .progress{position:absolute;bottom:0;right:0;height:3px;background:linear-gradient(90deg,var(--amber),var(--wine2));z-index:3;transition:width .5s}
 
 /* cover stage */
+.wifi{position:absolute;left:3vw;bottom:4vh;z-index:5;background:rgba(22,9,13,.86);border:1px solid rgba(232,166,80,.55);border-radius:18px;padding:14px 22px;font-family:Heebo,sans-serif;color:#f6ebe2;box-shadow:0 12px 30px rgba(0,0,0,.6);backdrop-filter:blur(6px);animation:fadeUp .8s both .6s}
+.wifi .wi{font:800 clamp(16px,1.5vw,22px) Rubik,sans-serif;color:#e8a650;margin-bottom:4px}
+.wifi div:not(.wi){font-size:clamp(16px,1.6vw,24px);display:flex;gap:12px;align-items:baseline}
+.wifi span{color:#c9b3a6;font-size:.75em;min-width:3.6em}
+.wifi bdi{font-weight:700;letter-spacing:.5px}
 .stage{position:absolute;left:0;top:0;width:1344px;height:768px;transform-origin:0 0;transition:transform 2.6s cubic-bezier(.6,0,.2,1)}
 .stage img{display:block;width:1344px;height:768px}
 .screen{position:absolute;left:0;top:0;width:1000px;height:640px;transform-origin:0 0;direction:rtl;text-align:center;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:30px;padding:110px 130px;color:#3a0f1c;opacity:0;transition:opacity 1s ease;font-family:Rubik,Heebo,sans-serif}
@@ -167,6 +172,7 @@ ul.warn li::before{background:var(--wine2);box-shadow:0 0 14px var(--wine2)}
       <div class="s">שעה אחת. כוס אחת. מחשב שעובד בשבילכם.</div>
     </div>
   </div>
+  <div class="wifi"><div class="wi">📶 וויפיי</div><div><span>רשת</span><bdi dir="ltr">ParshanData</bdi></div><div><span>סיסמה</span><bdi dir="ltr">shnuzi100</bdi></div></div>
 </section>
 
 <!-- 2 -->
