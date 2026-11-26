@@ -157,6 +157,14 @@ ul.warn li::before{background:var(--wine2);box-shadow:0 0 14px var(--wine2)}
   .vs,.grid5,.chips,.tour{grid-template-columns:1fr}
   .bg::after{background:rgba(20,10,13,.82)}
 }
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:1.6vh 1.4vw;width:min(1150px,88vw);margin-top:2vh}
+.grid3 .g{padding:2.2vh 1.2vw}.grid3 .g .d{font-size:clamp(13px,1.25vw,20px)}
+.slide.on .grid3 .g,.slide.on .flow .g{animation:none!important}
+.flow{margin-top:2vh}
+ul.pts.num{counter-reset:n}
+ul.pts.num li{counter-increment:n;padding-right:2em}
+ul.pts.num li::before{content:counter(n);width:1.45em;height:1.45em;top:.05em;display:grid;place-items:center;color:#1a0d10;font-weight:800;font-size:.75em;box-shadow:none;text-shadow:none}
+@media (max-width:760px){.grid3{grid-template-columns:1fr 1fr}}
 </style>
 </head>
 <body>
@@ -208,9 +216,9 @@ ul.warn li::before{background:var(--wine2);box-shadow:0 0 14px var(--wine2)}
   <div class="content" style="max-width:none">
     <h2>מה נראה <span class="amb">הערב?</span></h2>
     <div class="grid5">
-      <div class="g"><div class="e">🎬</div><div class="t">עריכת סרטונים</div><div class="d">עם FAL</div></div>
       <div class="g"><div class="e">🖼️</div><div class="t">מצגת HTML</div><div class="d">FAL + ארטיפקט</div></div>
-      <div class="g"><div class="e">🌐</div><div class="t">דפדפן</div><div class="d">קמפיינים ומשימות מסובכות</div></div>
+      <div class="g"><div class="e">🌐</div><div class="t">קלוד בכרום</div><div class="d">קמפיינים ומשימות מסובכות</div></div>
+      <div class="g"><div class="e">🎬</div><div class="t">סרטונים</div><div class="d">FAL מהתסריט ועד הרינדור</div></div>
       <div class="g"><div class="e">📬</div><div class="t">קונקטורים</div><div class="d">מייל, יומן, דרייב</div></div>
       <div class="g"><div class="e">💻</div><div class="t">המחשב שלכם</div><div class="d">תיקיות, מקום, ראוטר</div></div>
     </div>
@@ -327,47 +335,9 @@ ul.warn li::before{background:var(--wine2);box-shadow:0 0 14px var(--wine2)}
 </section>
 
 <section class="slide center sec">
-  <div class="bg full" style="background-image:url(img/video.jpg)"></div>
-  <div class="content">
-    <div class="secnum">01</div>
-    <h1>עריכת סרטונים 🎬</h1>
-    <div class="sub">עם FAL</div>
-  </div>
-</section>
-
-<!-- 6-7 video -->
-<section class="slide">
-  <div class="bg" style="background-image:url(img/video.jpg)"></div>
-  <div class="content">
-    <span class="tag">1 · עריכת סרטונים</span>
-    <h2>🎬 איך עושים את זה</h2>
-    <ul class="pts">
-      <li>פותחים חשבון ב-<b>fal.ai</b> ושמים מפתח בתיקייה</li>
-      <li>זורקים סרטון לתיקייה</li>
-      <li>"תחתוך שתיקות, תוסיף כתוביות ומוזיקה"</li>
-      <li>צריך תמונה/קטע חסר? FAL מייצר</li>
-      <li>מבקשים תיקונים בשפה רגילה</li>
-    </ul>
-  </div>
-</section>
-<section class="slide">
-  <div class="bg" style="background-image:url(img/video.jpg)"></div>
-  <div class="content">
-    <span class="tag">1 · עריכת סרטונים</span>
-    <h2>⚠️ דגשים</h2>
-    <ul class="pts warn">
-      <li><b>מגדירים תקציב</b> לכל פרויקט ("עד 3$")</li>
-      <li>FAL גובה כסף על כל יצירה</li>
-      <li>עובדים על עותק, לא על המקור</li>
-      <li>צופים בתוצאה לפני שמפרסמים</li>
-    </ul>
-  </div>
-</section>
-
-<section class="slide center sec">
   <div class="bg full" style="background-image:url(img/slides.jpg)"></div>
   <div class="content">
-    <div class="secnum">02</div>
+    <div class="secnum">01</div>
     <h1>מצגת HTML 🖼️</h1>
     <div class="sub">FAL + ארטיפקט</div>
   </div>
@@ -377,12 +347,12 @@ ul.warn li::before{background:var(--wine2);box-shadow:0 0 14px var(--wine2)}
 <section class="slide">
   <div class="bg" style="background-image:url(img/slides.jpg)"></div>
   <div class="content">
-    <span class="tag">2 · מצגת HTML</span>
+    <span class="tag">1 · מצגת HTML</span>
     <h2>🖼️ איך עושים את זה</h2>
     <ul class="pts">
       <li>"תבנה לי מצגת HTML על…"</li>
       <li>נותנים ראשי פרקים, הוא בונה</li>
-      <li>תמונות ב-FAL</li>
+      <li>תמונות ב-FAL (מיד נסביר)</li>
       <li>פותחים בדפדפן ומציגים</li>
       <li>רוצים לשתף? מעלים לארטיפקט ← <b>קישור</b></li>
       <li>(בדיוק כמו המצגת הזאת 😉)</li>
@@ -392,7 +362,7 @@ ul.warn li::before{background:var(--wine2);box-shadow:0 0 14px var(--wine2)}
 <section class="slide">
   <div class="bg" style="background-image:url(img/slides.jpg)"></div>
   <div class="content">
-    <span class="tag">2 · מצגת HTML</span>
+    <span class="tag">1 · מצגת HTML</span>
     <h2>⚠️ דגשים</h2>
     <ul class="pts warn">
       <li>ראשי פרקים, לא נאומים</li>
@@ -406,8 +376,8 @@ ul.warn li::before{background:var(--wine2);box-shadow:0 0 14px var(--wine2)}
 <section class="slide center sec">
   <div class="bg full" style="background-image:url(img/browser.jpg)"></div>
   <div class="content">
-    <div class="secnum">03</div>
-    <h1>קלוד בדפדפן 🌐</h1>
+    <div class="secnum">02</div>
+    <h1>קלוד בכרום 🌐</h1>
     <div class="sub">קמפיינים ומשימות מסובכות</div>
   </div>
 </section>
@@ -416,7 +386,7 @@ ul.warn li::before{background:var(--wine2);box-shadow:0 0 14px var(--wine2)}
 <section class="slide">
   <div class="bg" style="background-image:url(img/browser.jpg)"></div>
   <div class="content">
-    <span class="tag">3 · דפדפן</span>
+    <span class="tag">2 · קלוד בכרום</span>
     <h2>🌐 איך עושים את זה</h2>
     <ul class="pts">
       <li>מתקינים את התוסף <b>Claude in Chrome</b></li>
@@ -429,13 +399,88 @@ ul.warn li::before{background:var(--wine2);box-shadow:0 0 14px var(--wine2)}
 <section class="slide">
   <div class="bg" style="background-image:url(img/browser.jpg)"></div>
   <div class="content">
-    <span class="tag">3 · דפדפן</span>
+    <span class="tag">2 · קלוד בכרום</span>
     <h2>⚠️ דגשים</h2>
     <ul class="pts warn">
       <li><b>לא שולחים לו סיסמאות</b>: מתחברים לבד</li>
       <li>לא נותנים פרטי אשראי</li>
       <li>הוא עוצר לפני תשלום/פרסום: אתם מאשרים</li>
       <li>בודקים תקציב קמפיין פעמיים</li>
+    </ul>
+  </div>
+</section>
+
+<section class="slide center sec">
+  <div class="bg full" style="background-image:url(img/video.jpg)"></div>
+  <div class="content">
+    <div class="secnum">03</div>
+    <h1>סרטונים 🎬</h1>
+    <div class="sub">עם FAL</div>
+  </div>
+</section>
+
+<!-- what is FAL -->
+<section class="slide center">
+  <div class="bg full" style="background-image:url(img/video.jpg)"></div>
+  <div class="content" style="max-width:none">
+    <span class="tag" style="align-self:center">3 · סרטונים</span>
+    <h2>🧪 מה זה <span class="amb">FAL?</span></h2>
+    <div class="sub">סופרמרקט של מודלי AI: תמונות, וידאו, קול ומוזיקה. מאות מודלים, חשבון אחד</div>
+    <div class="grid4 flow">
+      <div class="g build"><div class="e">🗣️</div><div class="t">אתם</div><div class="d">"תעשה לי תמונה של…"</div></div>
+      <div class="g build"><div class="e">🤖</div><div class="t">קלוד</div><div class="d">כותב את הבקשה ושולח עם המפתח</div></div>
+      <div class="g build"><div class="e">🧪</div><div class="t">FAL</div><div class="d">מריץ את המודל וגובה סנטים</div></div>
+      <div class="g build"><div class="e">📁</div><div class="t">התיקייה שלכם</div><div class="d">הקובץ מחכה שם</div></div>
+    </div>
+    <div class="sub build">משלמים לפי שימוש: תמונה ≈ 4 סנט · קטע וידאו ≈ 35 סנט</div>
+  </div>
+</section>
+
+<!-- FAL key guide -->
+<section class="slide">
+  <div class="bg" style="background-image:url(img/video.jpg)"></div>
+  <div class="content" style="max-width:62vw">
+    <span class="tag">3 · סרטונים</span>
+    <h2>🔑 מדריך: מפתח FAL</h2>
+    <ul class="pts num">
+      <li class="build">נרשמים ב-<b><bdi dir="ltr">fal.ai</bdi></b> (אפשר עם גוגל)</li>
+      <li class="build"><b>Billing</b> ← טוענים קרדיט (10$ זה המון)</li>
+      <li class="build"><bdi dir="ltr">fal.ai/dashboard/keys</bdi> ← <b>Create Key</b> ← סוג <b>API</b></li>
+      <li class="build">מעתיקים <b>מיד</b>: רואים אותו רק פעם אחת</li>
+      <li class="build">פנקס רשימות ← מדביקים ← שומרים בתיקייה בשם <b><bdi dir="ltr">FAL_KEY.txt</bdi></b></li>
+      <li class="build">אומרים לקלוד: "המפתח של FAL נמצא בקובץ FAL_KEY.txt"</li>
+    </ul>
+  </div>
+</section>
+
+<!-- production stages -->
+<section class="slide center">
+  <div class="bg full" style="background-image:url(img/video.jpg)"></div>
+  <div class="content" style="max-width:none">
+    <span class="tag" style="align-self:center">3 · סרטונים</span>
+    <h2>🎬 שלבי <span class="amb">ההפקה</span></h2>
+    <div class="grid3">
+      <div class="g build"><div class="e">📝</div><div class="t">1 · תסריט</div><div class="d">כותבים יחד עם קלוד ומאשרים</div></div>
+      <div class="g build"><div class="e">🎙️</div><div class="t">2 · קריינות</div><div class="d">מקליטים בעצמכם, או קול AI</div></div>
+      <div class="g build"><div class="e">🎨</div><div class="t">3 · סגנון</div><div class="d">2–3 תמונות לדוגמה, בוחרים מראה</div></div>
+      <div class="g build"><div class="e">🖼️</div><div class="t">4 · סטוריבורד</div><div class="d">תמונה לכל משפט. פה מתקנים!</div></div>
+      <div class="g build"><div class="e">✂️</div><div class="t">5 · וידאו אופליין</div><div class="d">גרסה גסה: תמונות + קריינות, בודקים קצב</div></div>
+      <div class="g build"><div class="e">🎞️</div><div class="t">6 · וידאו אונליין</div><div class="d">תנועה, מוזיקה, כתוביות, רינדור סופי</div></div>
+    </div>
+    <div class="sub build">מאשרים כל שלב לפני הבא: תיקון בסטוריבורד = סנטים, תיקון בווידאו = דולרים</div>
+  </div>
+</section>
+
+<section class="slide">
+  <div class="bg" style="background-image:url(img/video.jpg)"></div>
+  <div class="content">
+    <span class="tag">3 · סרטונים</span>
+    <h2>⚠️ דגשים</h2>
+    <ul class="pts warn">
+      <li><b>מגדירים תקציב</b> לכל פרויקט ("עד 3$")</li>
+      <li>המפתח = כרטיס אשראי: <b>לא משתפים</b> ולא מעלים לרשת</li>
+      <li>עובדים על עותק, לא על המקור</li>
+      <li>צופים בתוצאה לפני שמפרסמים</li>
     </ul>
   </div>
 </section>
