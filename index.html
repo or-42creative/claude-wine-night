@@ -162,7 +162,8 @@ ul.warn li::before{background:var(--wine2);box-shadow:0 0 14px var(--wine2)}
 .slide.on .grid3 .g,.slide.on .flow .g{animation:none!important}
 .flow{margin-top:2vh}
 ul.pts.num{counter-reset:n}
-ul.pts.num li{counter-increment:n;padding-right:2em;font-size:clamp(16px,1.75vw,28px)}
+ul.pts.num{gap:1.1vh}
+ul.pts.num li{counter-increment:n;padding-right:2em;font-size:clamp(14px,min(1.75vw,3.4vh),28px)}
 ul.pts.num li::before{content:counter(n);width:1.45em;height:1.45em;top:.05em;display:grid;place-items:center;color:#1a0d10;font-weight:800;font-size:.75em;box-shadow:none;text-shadow:none}
 @media (max-width:760px){.grid3{grid-template-columns:1fr 1fr}}
 </style>
