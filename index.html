@@ -162,7 +162,7 @@ ul.warn li::before{background:var(--wine2);box-shadow:0 0 14px var(--wine2)}
 .slide.on .grid3 .g,.slide.on .flow .g{animation:none!important}
 .flow{margin-top:2vh}
 ul.pts.num{counter-reset:n}
-ul.pts.num li{counter-increment:n;padding-right:2em}
+ul.pts.num li{counter-increment:n;padding-right:2em;font-size:clamp(16px,1.75vw,28px)}
 ul.pts.num li::before{content:counter(n);width:1.45em;height:1.45em;top:.05em;display:grid;place-items:center;color:#1a0d10;font-weight:800;font-size:.75em;box-shadow:none;text-shadow:none}
 @media (max-width:760px){.grid3{grid-template-columns:1fr 1fr}}
 </style>
@@ -424,7 +424,7 @@ ul.pts.num li::before{content:counter(n);width:1.45em;height:1.45em;top:.05em;di
   <div class="bg full" style="background-image:url(img/video.jpg)"></div>
   <div class="content" style="max-width:none">
     <span class="tag" style="align-self:center">3 · סרטונים</span>
-    <h2>🧪 מה זה <span class="amb">FAL?</span></h2>
+    <h2>🧪 מה זה <span class="amb"><bdi>FAL</bdi>?</span></h2>
     <div class="sub">סופרמרקט של מודלי AI: תמונות, וידאו, קול ומוזיקה. מאות מודלים, חשבון אחד</div>
     <div class="grid4 flow">
       <div class="g build"><div class="e">🗣️</div><div class="t">אתם</div><div class="d">"תעשה לי תמונה של…"</div></div>
@@ -439,16 +439,16 @@ ul.pts.num li::before{content:counter(n);width:1.45em;height:1.45em;top:.05em;di
 <!-- FAL key guide -->
 <section class="slide">
   <div class="bg" style="background-image:url(img/video.jpg)"></div>
-  <div class="content" style="max-width:62vw">
+  <div class="content" style="max-width:70vw">
     <span class="tag">3 · סרטונים</span>
     <h2>🔑 מדריך: מפתח FAL</h2>
     <ul class="pts num">
-      <li class="build">נרשמים ב-<b><bdi dir="ltr">fal.ai</bdi></b> (אפשר עם גוגל)</li>
+      <li class="build">נרשמים באתר <b><bdi dir="ltr">fal.ai</bdi></b> (אפשר עם גוגל)</li>
       <li class="build"><b>Billing</b> ← טוענים קרדיט (10$ זה המון)</li>
-      <li class="build"><bdi dir="ltr">fal.ai/dashboard/keys</bdi> ← <b>Create Key</b> ← סוג <b>API</b></li>
+      <li class="build"><b>API Keys</b> ← <b>Create Key</b> ← סוג <b>API</b></li>
       <li class="build">מעתיקים <b>מיד</b>: רואים אותו רק פעם אחת</li>
-      <li class="build">פנקס רשימות ← מדביקים ← שומרים בתיקייה בשם <b><bdi dir="ltr">FAL_KEY.txt</bdi></b></li>
-      <li class="build">אומרים לקלוד: "המפתח של FAL נמצא בקובץ FAL_KEY.txt"</li>
+      <li class="build">מדביקים בפנקס רשימות ושומרים בתיקייה: <b><bdi dir="ltr">FAL_KEY.txt</bdi></b></li>
+      <li class="build">ולקלוד: "המפתח של FAL בקובץ <bdi dir="ltr">FAL_KEY.txt</bdi>"</li>
     </ul>
   </div>
 </section>
